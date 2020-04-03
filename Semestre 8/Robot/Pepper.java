@@ -25,22 +25,22 @@ public class Pepper extends Robot implements Serializable{
 		}
 		switch(a.getNom()){
 		case "elephant":
-			server.send(this.name,"elephant");
+			server.sendOrder(this.name,"elephant");
 			break;
 		case "avance":
-			server.send(this.name,"avance");
+			server.sendOrder(this.name,"avance");
 			break;
 
 		case "recule":
-			server.send(this.name,"recule");
+			server.sendOrder(this.name,"recule");
 			break;
 
 		case "demitour":
-			server.send(this.name,"demitour");
+			server.sendOrder(this.name,"demitour");
 			break;
 
 		case "parler":
-			server.send(this.name,"parler-message");
+			server.sendOrder(this.name,"parler-message");
 			break;
 		}
 	}
