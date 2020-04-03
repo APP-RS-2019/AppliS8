@@ -22,7 +22,7 @@ public class ClientSocket {
 	private String ip;
 	private int port;
 
-	public ClientSocket(String ip, int port, String name) throws Exception {
+	public ClientSocket(String ip, int port, String name) {
 		this.name = name;
 		this.ip = ip;
 		this.port = port;

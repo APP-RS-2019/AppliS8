@@ -120,7 +120,7 @@ public class Test {
 							ClientSocket server = new ClientSocket(iPserveur,Integer.parseInt(nbPort),"Mode manuel");
 							System.out.println("Etat du serveur : + " + server.isOpen() + "\n");
 							System.out.println("Envoi de l'ordre\n");
-							server.send(iPRobotModeManuel, actionModeManuel);
+							server.sendOrder(iPRobotModeManuel, actionModeManuel);
 						}
 						catch(Exception ConnectException) {
 							System.err.println("Connection au serveur échouée\n");

@@ -32,7 +32,7 @@ public class Syst implements Serializable {
 		Syst.fleets = fleets;
 	}
 
-	public ClientSocket getClientsocket() {
+	public static ClientSocket getClientsocket() {
 		return clientsocket;
 	}
 
