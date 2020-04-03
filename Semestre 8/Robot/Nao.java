@@ -13,7 +13,7 @@ public class Nao extends Robot{
 
 	@Override
 	public void doAction(Action a) {
-		switch(a.getName()){
+		switch(a.getNom()){
 		case "elephant":
 			//server.send(this.name,"elephant");
 			break;
