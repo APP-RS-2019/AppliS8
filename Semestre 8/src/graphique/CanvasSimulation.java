@@ -168,9 +168,7 @@ public class CanvasSimulation extends Canvas{
 			}
 			}
 		};
-
 		thread.start();	
-
 	}
 }
 
