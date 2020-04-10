@@ -2,22 +2,23 @@ package graphique;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import eventModel.AL;
+import upperClass.Syst;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.Color;
 
 public class Dialog_PrefenceServeur extends JDialog implements AL{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField textPort;
@@ -29,7 +30,8 @@ public class Dialog_PrefenceServeur extends JDialog implements AL{
 	private JButton btnConnexion = new JButton("Connexion");
 	private JButton okButton = new JButton("OK");
 
-	public Dialog_PrefenceServeur() {
+	public Dialog_PrefenceServeur(/*JFrame parent,String title, boolean modal*/) {
+		//super(parent, title, modal);
 		this.setBounds(100, 100, 450, 300);
 		this.setTitle("Preferences Serveur");
 		getContentPane().setLayout(new BorderLayout());
@@ -51,13 +53,13 @@ public class Dialog_PrefenceServeur extends JDialog implements AL{
 		contentPanel.add(lblPort);
 
 		textPort = new JTextField();
-		//textPort.setText(Integer.toString(Syst.getClientsocket().getPort()));
+		textPort.setText(Integer.toString(Syst.getClientsocket().getPort()));
 		textPort.setBounds(83, 103, 34, 22);
 		contentPanel.add(textPort);
 		textPort.setColumns(10);
 
 		textIp = new JTextField();
-		//textIp.setText(Syst.getClientsocket().getIp());
+		textIp.setText(Syst.getClientsocket().getIp());
 		textIp.setBounds(80, 55, 116, 22);
 		contentPanel.add(textIp);
 		textIp.setColumns(10);
@@ -71,95 +73,82 @@ public class Dialog_PrefenceServeur extends JDialog implements AL{
 		contentPanel.add(btnModifierPort);
 
 		btnTestConnexion.setBounds(258, 152, 130, 25);
-		/*if(Syst.getClientsocket().isOpen()) {
+		if(Syst.getClientsocket().isOpen()) {
 			btnTestConnexion.setBackground(Color.green);
 		}
 		else if (Syst.getClientsocket().isOpen()==false) {
 			btnTestConnexion.setBackground(Color.red);
-		}*/
+		}
 		contentPanel.add(btnTestConnexion);
 
 		btnConnexion.setBounds(45, 152, 97, 25);
 		contentPanel.add(btnConnexion);
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-		}
-		
+
+		JPanel buttonPane = new JPanel();
+		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		getContentPane().add(buttonPane, BorderLayout.SOUTH);
+
+		okButton.setActionCommand("OK");
+		buttonPane.add(okButton);
+		getRootPane().setDefaultButton(okButton);
+
+
 		btnModifierIp.addActionListener(this);
 		btnModifierPort.addActionListener(this);
-		btnTestConnexion.addActionListener(this);
 		btnConnexion.addActionListener(this);
 		okButton.addActionListener(this);
-
 		btnTestConnexion.setEnabled(false);
+
 		this.setVisible(true);
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		if(e.getSource()==btnModifierIp) {
 			try {
-				//Syst.getClientsocket().setIp(textIp.getText());
+				Syst.getClientsocket().setIp(textIp.getText());
 				btnTestConnexion.setBackground(Color.red);
 			} catch (Exception ex) {
-				// TODO Auto-generated catch block
 				ex.printStackTrace();
 			}
 		}
 		if(e.getSource()==btnModifierPort) {
 			try {
-				//Syst.getClientsocket().setPort(Integer.parseInt(textPort.getText()));
+				Syst.getClientsocket().setPort(Integer.parseInt(textPort.getText()));
 				btnTestConnexion.setBackground(Color.red);
 			} catch (NumberFormatException ex) {
-				// TODO Auto-generated catch block
 				ex.printStackTrace();
 			} catch (Exception ex) {
-				// TODO Auto-generated catch block
 				ex.printStackTrace();
 			}
 		}
-		if(e.getSource()==btnTestConnexion) {
-			//  if (Syst.getClientsocket().isOpen()) {
-			//					btnTestConnection.setBackground(Color.green);
-			//				}
-			//				else {
-			//					btnTestConnection.setBackground(Color.red);
-			//				}
-		}
 		if(e.getSource()==btnConnexion) {
-			/*if(Syst.getClientsocket().isOpen()) {
-			try {
-				Syst.getClientsocket().disconnect();
-				Syst.getClientsocket().connect("");
-				if(Syst.getClientsocket().isOpen()) {
-					btnTestConnexion.setBackground(Color.green);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		else if (Syst.getClientsocket().isOpen()==false) {
-			try {
-				Syst.getClientsocket().connect("");
-				if(Syst.getClientsocket().isOpen()) {
-					btnTestConnexion.setBackground(Color.green);
+			if(Syst.getClientsocket().isOpen()) {
+				try {
+					Syst.getClientsocket().disconnect();
+					Syst.getClientsocket().connect("");
+					if(Syst.getClientsocket().isOpen()) {
+						btnTestConnexion.setBackground(Color.green);
+					}
+				} catch (Exception e1) {
+					e1.printStackTrace();
 				}
 			}
-			catch (Exception e) {
-				e.printStackTrace();
+			else if (Syst.getClientsocket().isOpen()==false) {
+				try {
+					Syst.getClientsocket().connect("");
+					if(Syst.getClientsocket().isOpen()) {
+						btnTestConnexion.setBackground(Color.green);
+					}
+				}
+				catch (Exception e2) {
+					e2.printStackTrace();
+				}
 			}
-		}*/
 		}
 		if(e.getSource()==okButton) {
+			Frame.actualize();
 			dispose();
+			
 		}
 	}
 }

@@ -16,7 +16,7 @@ public class ClientSocket {
 	private DataOutputStream outToServer;
 	private byte[] b;
 	public boolean open;
-	private OutputStream outStramToServer;
+	private OutputStream outStreamToServer;
 	
 	private String name;
 	private String ip;
@@ -87,7 +87,7 @@ public class ClientSocket {
 		b=msg.getBytes();
 		try {
 			outToServer.write(b,0,msg.length());
-			this.outStramToServer.flush();
+			//this.outStreamToServer.flush();
 			outToServer.flush();
 			
 		} catch (IOException e) {

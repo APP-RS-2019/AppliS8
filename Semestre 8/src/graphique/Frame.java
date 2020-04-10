@@ -11,15 +11,16 @@ public class Frame extends JFrame implements AL{
 	 */
 	private static final long serialVersionUID = 1L;
 	private JMenuBar menuBar;
+//	private OngletGestion ongletGestion;
+//	private OngletModeNormal ongletModeNormal;
+//	private  OngletScenario ongletSimulation;
 	
 	public Frame() {
 		super();
 		this.setTitle("APP RS 2021");
 		this.setExtendedState(Frame.MAXIMIZED_BOTH);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		menuBar = new JMenuBar();
-
-		
+		menuBar = new JMenuBar();	
 		
 		
 		this.initComponent();
@@ -58,7 +59,11 @@ public class Frame extends JFrame implements AL{
 		
 	}
 
-	@Override
+	public static void actualize() {
+		/*this.ongletGestion.initComponent();
+		this.ongletModeNormal.initComponent();*/
+		//ongletSimulation.repaint();
+	}
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		new Dialog_PrefenceServeur();

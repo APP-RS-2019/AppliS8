@@ -10,16 +10,12 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import eventModel.AL;
-import robot.Fleet;
 import robot.Robot;
 import sensor.Sensor;
 import upperClass.Syst;
 
 public class Dialog_AjoutCapteur extends JDialog implements AL{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private int flotteSelect;
@@ -88,9 +84,7 @@ public class Dialog_AjoutCapteur extends JDialog implements AL{
 		this.setVisible(true);
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		if(e.getSource()==okButton) {
 			Sensor sensor=new Sensor(textId.getText(), textName.getText(), textDescription.getText());
 			HashSet<Robot> robs=Syst.getFleets().get(flotteSelect).getRobots();

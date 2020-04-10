@@ -36,7 +36,7 @@ public class Test {
 		boolean menuModeManuel = true;
 		boolean menuModeScenario = true;
 
-		System.out.println("Bienvenu dans le mode console du programme APP-RS-2022");
+		System.out.println("Bienvenu dans le mode console du programme APP-RS-2021");
 
 		while(menuPrincipal){
 			//Menu Principal

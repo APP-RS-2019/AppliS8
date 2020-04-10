@@ -6,17 +6,30 @@ import java.util.concurrent.TimeUnit;
 import action.ActionToDo;
 
 import action.Scenario;
+import upperClass.Syst;
 
 public class CanvasSimulation extends Canvas{
 	private int time;
 	private Scenario scenario;
+	private static CanvasSimulation instance = null;
+	private boolean trans;
 
-	public CanvasSimulation(Scenario scenario) {
+	private CanvasSimulation(Scenario scenario) {
 		this.scenario=scenario;
 		this.setBackground(Color.LIGHT_GRAY);
-		this.time=0;
-
+		this.time=5;
+		this.trans=false;
 	}
+	public static CanvasSimulation getInstance(Scenario scenario) {
+		if(CanvasSimulation.instance == null) {
+			CanvasSimulation.instance = new CanvasSimulation(scenario);
+		}
+		return CanvasSimulation.instance;
+	}
+	public static CanvasSimulation getInstance() {
+		return CanvasSimulation.instance;
+	}
+
 	public void paint(Graphics g) {
 		g.setColor(Color.black);
 		g.drawRect(0, 0, 1879, 424);
@@ -41,58 +54,123 @@ public class CanvasSimulation extends Canvas{
 		for (ActionToDo action : act) {
 			//switch(action.getNameRobot()) {
 			if(action.getNameRobot().equals("Pepper")){
+				if(trans&&(this.time>(int) (action.getTime()*20)+10)&&(this.time<(int) (action.getTime()*20)+15)&&action.getRunning()==false){
+					Syst.getClientsocket().sendOrder("Pepper", action.getNameAction());
+					action.activeRuning();}
 				if (time>=action.getTime()*20+50) {
 					g.setColor(Color.green);
 				}
 				else if (time<action.getTime()*20+50) {
-					//vérifier si l'action est running ou non if ()
-
-					//deuxième if
-					g.setColor(Color.orange);
+					if(action.getRunning()) {
+						g.setColor(Color.blue);
+					}
+					else if(!action.getRunning()) {
+						g.setColor(Color.orange);
+					}
 				}
 				g.fillRect((int) (action.getTime()*20)+10, 35, 40, 40);
+
 			}
 			else if(action.getNameRobot().equals("Nao")){
+				if(trans&&(this.time>(int) (action.getTime()*20)+10)&&(this.time<(int) (action.getTime()*20)+15)&&action.getRunning()==false){
+					Syst.getClientsocket().sendOrder("Nao", action.getNameAction());
+					action.activeRuning();}
 				if (time>=action.getTime()*20+50) {
 					g.setColor(Color.green);
 				}
 				else if (time<action.getTime()*20+50) {
-					//vérifier si l'action est running ou non if ()
-
-					//deuxième if
-					g.setColor(Color.orange);
+					if(action.getRunning()) {
+						g.setColor(Color.blue);
+					}
+					else if(!action.getRunning()) {
+						g.setColor(Color.orange);
+					}
 				}
 				g.fillRect((int) (action.getTime()*20)+10, 140, 40, 40);
+
 			}
 			if(action.getNameRobot().equals("Peekee1R")){
+				if(trans&&(this.time>(int) (action.getTime()*20)+11)&&(this.time<(int) (action.getTime()*20)+15)&&action.getRunning()==false){
+					Syst.getClientsocket().sendOrder("Pekee", action.getNameAction());
+					action.activeRuning();}
 				if (time>=action.getTime()*20+50) {
 					g.setColor(Color.green);
 				}
 				else if (time<action.getTime()*20+50) {
-					//vérifier si l'action est running ou non if ()
-
-					//deuxième if
-					g.setColor(Color.orange);
+					if(action.getRunning()) {
+						g.setColor(Color.blue);
+					}
+					else if(!action.getRunning()) {
+						g.setColor(Color.orange);
+					}
 				}
 				g.fillRect((int) (action.getTime()*20)+10, 245, 40, 40);
+
 			}
 			if(action.getNameRobot().equals("Robotino")){
+				if(trans&&(this.time>(int) (action.getTime()*20)+10)&&(this.time<(int) (action.getTime()*20)+15)&&action.getRunning()==false){
+					Syst.getClientsocket().sendOrder("Robotino", action.getNameAction());
+					action.activeRuning();}
 				if (time>=action.getTime()*20+50) {
 					g.setColor(Color.green);
 				}
 				else if (time<action.getTime()*20+50) {
-					//vérifier si l'action est running ou non if ()
-
-					//deuxième if
-					g.setColor(Color.orange);
+					if(action.getRunning()) {
+						g.setColor(Color.blue);
+					}
+					else if(!action.getRunning()) {
+						g.setColor(Color.orange);
+					}
 				}
 				g.fillRect((int) (action.getTime()*20)+10, 350, 40, 40);
+
 			}
 		}
 	}
+
 	public void increaseTime() {
 		this.time++;
 		this.repaint();
+	}
+
+	public void simulate() {
+		this.trans=false;
+		Thread thread = new Thread(){
+			public void run(){try {
+				time=time+5; //on remet l'affichage en corr�lation avec le temps de d�part
+				int i=0;
+				while(i<1810-3) {
+					CanvasSimulation.getInstance().increaseTime();
+					TimeUnit.MILLISECONDS.sleep(50);
+					i++;
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			}
+		};
+
+		thread.start();	
+	}
+	public void transmettre() {
+		this.trans=true;
+		Thread thread = new Thread(){
+			public void run(){try {
+				time=time+5; //on remet l'affichage en corr�lation avec le temps de d�part
+				int i=0;
+				while(i<1810-3) {
+					CanvasSimulation.getInstance().increaseTime();
+					TimeUnit.MILLISECONDS.sleep(50);
+					i++;
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			}
+		};
+
+		thread.start();	
+
 	}
 }
 

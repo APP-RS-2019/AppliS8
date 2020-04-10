@@ -5,9 +5,10 @@ import java.util.HashSet;
 
 import javax.swing.table.AbstractTableModel;
 import action.Action;
-import sensor.Sensor;
 
 public class ModeleDynamiqueAction extends AbstractTableModel{
+
+	private static final long serialVersionUID = 1L;
 	private final ArrayList<Action> actions= new ArrayList<Action>();
 	private final String[]  entete= {"Id", "Nom", "description"};
 

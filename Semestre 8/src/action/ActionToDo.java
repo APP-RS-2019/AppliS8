@@ -59,6 +59,13 @@ public class ActionToDo extends Thread{
 		}
 	}
 	
+	public boolean getRunning() {
+		return this.running;
+	}
+	public void activeRuning() {
+		this.running=true;
+	}
+	
 	/*public void run() {
 		while(true) {
 			try {

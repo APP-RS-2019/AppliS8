@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import javax.swing.table.AbstractTableModel;
-
-import robot.Robot;
 import sensor.Sensor;
 
 public class ModeleDynamiqueCapteur extends AbstractTableModel {
+
+	private static final long serialVersionUID = 1L;
 	private final ArrayList<Sensor> capteurs= new ArrayList<Sensor>();
 	private final String[]  entete= {"Id", "Nom", "Description"};
 

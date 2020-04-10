@@ -3,15 +3,13 @@ package graphique;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import action.Action;
 import action.ActionToDo;
 
 import javax.swing.table.AbstractTableModel;
 
-import robot.Fleet;
-
 public class ModeleDynamiqueScenario extends AbstractTableModel{
 
+	private static final long serialVersionUID = 1L;
 	private final String[] entete = {"Robot", "Action", "Time"};
 	private ArrayList<ActionToDo> actions;
 	

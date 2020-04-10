@@ -1,13 +1,13 @@
 package graphique;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 import javax.swing.table.AbstractTableModel;
 import robot.*;
 
 public class ModeleDynamiqueRobot extends AbstractTableModel{
+
+	private static final long serialVersionUID = 1L;
 	private final ArrayList<Robot> robots= new ArrayList<Robot>();
 	private final String[]  entete= {"Id/IP", "Nom", "Posx", "Posy","Angle","nb capteur","nb action"};//addnbaction et nbsensor
 

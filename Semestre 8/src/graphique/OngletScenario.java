@@ -1,14 +1,11 @@
 package graphique;
 
 import javax.swing.*;
-
 import action.Scenario;
 import action.Action;
 import action.ActionToDo;
 import robot.Robot;
-import sensor.Sensor;
 import upperClass.Syst;
-import java.awt.Canvas;
 import java.awt.event.*;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -27,7 +24,7 @@ public class OngletScenario extends JPanel {
 
 	private int flotteSelect;
 	private int robotSelect;
-	private CanvasSimulation canvaSimulation;
+	private CanvasSimulation canvasSimulation;
 	private Scenario scenario;
 	private JTextField txtTime;
 
@@ -39,7 +36,10 @@ public class OngletScenario extends JPanel {
 		this.modeleScenario=new ModeleDynamiqueScenario();
 		this.flotteSelect=-1; this.robotSelect=-1;
 		this.scenario=new Scenario();
+		this.canvasSimulation = CanvasSimulation.getInstance(scenario);
 
+		canvasSimulation.setBounds(10, 500, 1880, 425);
+		add(canvasSimulation);
 		//JButtonPane transmition =new JButtonPane();
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 10, 410, 460);
@@ -62,16 +62,14 @@ public class OngletScenario extends JPanel {
 		tableAction = new JTable(modeleAction);
 		scrollPane_2.setViewportView(tableAction);
 
-		canvaSimulation = new CanvasSimulation(scenario);
-		canvaSimulation.setBounds(10, 500, 1880, 425);
-		add(canvaSimulation);
+		//canvaSimulation = new CanvasSimulation(scenario);
 
 		JButton btnCParti = new JButton("c parti");
 		btnCParti.setBounds(1362, 116, 91, 40);
 		add(btnCParti);
 
 		JRadioButton simuler = new JRadioButton("Simuler");
-		simuler.setSelected(true);//par dÃ©faut, on fait une simulation
+		simuler.setSelected(true);//par défaut, on fait une simulation
 		simuler.setBounds(1358, 208, 127, 25);
 		add(simuler);
 
@@ -81,9 +79,6 @@ public class OngletScenario extends JPanel {
 		add(transmettre);
 		if (Syst.getClientsocket().isOpen()==false) {
 			transmettre.setEnabled(false);
-		}
-		else if (Syst.getClientsocket().isOpen()) {
-			transmettre.setEnabled(true);
 		}
 
 		ButtonGroup group = new ButtonGroup();
@@ -109,6 +104,7 @@ public class OngletScenario extends JPanel {
 
 		txtTime = new JTextField();
 		txtTime.setBounds(1357, 368, 116, 22);
+		txtTime.setText("0");
 		add(txtTime);
 		txtTime.setColumns(10);
 
@@ -144,23 +140,16 @@ public class OngletScenario extends JPanel {
 					}
 					modeleAction.initTable(acts);
 				}
+				if (Syst.getClientsocket().isOpen()) {
+					transmettre.setEnabled(true);
+				}
 			}
 
 		});
 		btnCParti.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				try {
-					int i=0;
-					while(i<1800-3) {
-						canvaSimulation.increaseTime();
-						canvaSimulation.repaint();
-						TimeUnit.MILLISECONDS.sleep(10);
-						//Thread.sleep(100);
-						i++;
-					}
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
+				if (simuler.isSelected()) {canvasSimulation.simulate();}
+				else if(transmettre.isSelected()) {canvasSimulation.transmettre();}
 			}
 		});
 		btnAjouter.addActionListener(new ActionListener() {
@@ -181,7 +170,7 @@ public class OngletScenario extends JPanel {
 					ActionToDo actiontodo=new ActionToDo(rob.getName(), act.getNom(), Long.parseLong(txtTime.getText()));
 					scenario.addAction(actiontodo);
 					modeleScenario.addAction(actiontodo);
-					canvaSimulation.repaint();
+					canvasSimulation.repaint();
 				}
 			}
 

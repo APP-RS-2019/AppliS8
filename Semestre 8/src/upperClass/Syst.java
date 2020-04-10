@@ -21,7 +21,7 @@ public class Syst implements Serializable {
 	
 	public Syst() {
 		Syst.fleets = new ArrayList<Fleet> ();
-		Syst.clientsocket = new ClientSocket("193.48.125.71",1933,"Application");
+		Syst.clientsocket = new ClientSocket("25.100.142.23",1933,"Application");
 	}
 
 	public static ArrayList<Fleet> getFleets() {

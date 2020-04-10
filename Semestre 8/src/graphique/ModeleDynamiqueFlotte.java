@@ -6,6 +6,7 @@ import robot.*;
 
 public class ModeleDynamiqueFlotte extends AbstractTableModel{
 
+	private static final long serialVersionUID = 1L;
 	private final ArrayList<Fleet> flottes;
 	private final String[] entete = {"Id", "Nom", "NbRobots"};
 	public ModeleDynamiqueFlotte(ArrayList<Fleet> fleets) {
@@ -14,7 +15,6 @@ public class ModeleDynamiqueFlotte extends AbstractTableModel{
 		for (int i=0;i<fleets.size();i++) {
 			flottes.add(fleets.get(i));
 		}
-		System.out.println(flottes.size());
 	}
 
 	public int getColumnCount() {
