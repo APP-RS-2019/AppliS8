@@ -169,7 +169,7 @@ public class InitData {
 		pepper.addAction(A76);
 		
 		Nao nao = new Nao("2", "Nao");
-		Pekee1R pekee1R = new Pekee1R("3","Peekee1R");
+		Pekee1R pekee1R = new Pekee1R("3","Pekee1R");
 		Robotino robotino = new Robotino("4","Robotino");
 		
 		Fleet fleet = new Fleet("1");
